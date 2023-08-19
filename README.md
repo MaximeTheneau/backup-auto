@@ -25,7 +25,3 @@ Les contributions sont les bienvenues ! Si vous souhaitez améliorer ce script d
 ## Avertissement
 
 Assurez-vous de traiter les informations sensibles avec précaution. Ne stockez pas de mots de passe ou d'informations confidentielles directement dans ce référentiel. Utilisez des variables d'environnement sécurisées pour stocker ces informations.
-
-## Licence
-
-Ce projet est sous licence MIT. Consultez le fichier [LICENSE](LICENSE) pour plus d'informations.
