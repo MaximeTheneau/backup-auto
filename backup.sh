@@ -15,7 +15,7 @@ mkdir -p $BACKUP_DIR/mysql
 mkdir -p $BACKUP_DIR/letsencrypt
 
 # Sauvegarde du répertoire avec rsync
-sudo rsync -aAXv /var/www/html/testNext/ $BACKUP_DIR/html
+sudo rsync -aAXv /var/www/html/ $BACKUP_DIR/html
 sudo rsync -aAXv /etc/nginx/ $BACKUP_DIR/nginx
 sudo rsync -aAXv /etc/letsencrypt/ $BACKUP_DIR/letsencrypt
 # Sauvegarde de la base de données
