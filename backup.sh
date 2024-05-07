@@ -27,7 +27,7 @@ for db in $databases; do
 done
 
 # Récupération de la liste des répertoires
-excluded_directories="--exclude=/var/cache --exclude=/var/tmp --exclude=/var/backups --exclude=/var/lib/docker --exclude=$BACKUP_DIR"
+excluded_directories="--exclude=/var/cache --exclude=/var/tmp --exclude=/var/backups --exclude=/var/lib/docker --exclude=$BACKUP_DIR_BASE"
 rsync -aAXv $excluded_directories  $SOURCE_DIR $BACKUP_DIR_CLONE
 
 # Compression de l'archive
