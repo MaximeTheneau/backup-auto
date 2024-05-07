@@ -31,7 +31,7 @@ excluded_directories="--exclude=/var/cache --exclude=/var/tmp --exclude=/var/bac
 rsync -aAXv $excluded_directories  $SOURCE_DIR $BACKUP_DIR_CLONE
 
 # Compression de l'archive
-tar -czf "$BACKUP_DIR.tar.gz" -C "$BACKUP_DIR_CLONE" .
+tar -czf "$BACKUP_DIR.tar.gz" -C "$BACKUP_DIR" .
 
 # Suppression des fichiers temporaires
 rm -rf "$BACKUP_DIR"
