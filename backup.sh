@@ -9,7 +9,7 @@ BACKUP_DIR=$BACKUP_DIR_BASE/$CURRENT_DATE
 BACKUP_DIR_MYSQL=$BACKUP_DIR/mysql
 BACKUP_DIR_CLONE=$BACKUP_DIR/rsync
 # BACKUP_DIR_CLONE="/media/max/writable/$CURRENT_DATE"
-SOURCE_DIR="/var/www/html/adminer"
+SOURCE_DIR="/var /etc /home /usr/local /root" 
 
 # Création du répertoire de sauvegarde avec les bonnes permissions
 sudo mkdir -p "$BACKUP_DIR_CLONE"
