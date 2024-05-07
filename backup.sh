@@ -40,9 +40,9 @@ rm -rf "$BACKUP_DIR"
 rm -rf $BACKUP_DIR_BASE/$OLDER_DATE.tar.gz
 echo "Backup $OLDER_DATE terminé"
 # AWS S3 
-aws s3 cp "$BACKUP_DIR.tar.gz" s3://$AWS_S3_BUCKET/$CURRENT_DATE.tar.gz
+aws s3 cp "$BACKUP_DIR.tar.gz" s3://$S3_BUCKET/$CURRENT_DATE.tar.gz
 
 # # Suppression de l'archive AWS S3 de plus de 3 jours
-aws s3 rm s3://$AWS_S3_BUCKET/$OLDER_DATE.tar.gz
+aws s3 rm s3://$S3_BUCKET/$OLDER_DATE.tar.gz
 
 
