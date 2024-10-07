@@ -31,12 +31,16 @@ rsync -aAXv $excluded_directories  $SOURCE_DIR $BACKUP_DIR_CLONE
 # Compression de l'archive
 tar -czf "$BACKUP_DIR.tar.gz" -C "$BACKUP_DIR" .
 
-# Supprimer les backups de plus de 3 jours
-rm -rf $BACKUP_DIR_BASE/$OLDER_DATE.tar.gz
-rm -rf $BACKUP_DIR_BASE/$OLDER_DATE
-
 # AWS S3 
-aws s3 cp "$BACKUP_DIR.tar.gz" s3://$S3_BUCKET/$CURRENT_DATE.tar.gz
+if aws s3 cp "$BACKUP_DIR.tar.gz" s3://$S3_BUCKET/$CURRENT_DATE.tar.gz; then
+    # Si la copie vers S3 réussit, supprimer les backups locaux
+    rm -rf "$BACKUP_DIR"
+    rm -rf "$BACKUP_DIR.tar.gz"
+    echo "Backup local supprimé après transfert réussi vers AWS S3"
+else
+    echo "Erreur lors du transfert vers AWS S3. Backup local non supprimé."
+fi
+
 
 # # Suppression de l'archive AWS S3 de plus de 3 jours
 aws s3 rm s3://$S3_BUCKET/$OLDER_DATE.tar.gz
