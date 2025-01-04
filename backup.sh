@@ -3,13 +3,14 @@ source .env.local
 
 CURRENT_DATE=$(date +%Y%m%d)
 OLDER_DATE=$(date -d "3 days ago" +%Y%m%d)
+BACKUP_DIR_BASE="/var/www/html/backup-auto/daily"
 
-BACKUP_DIR_BASE=$BACKUP_DIR_BASE
 BACKUP_DIR=$BACKUP_DIR_BASE/$CURRENT_DATE
 BACKUP_DIR_MYSQL=$BACKUP_DIR/mysql
 BACKUP_DIR_CLONE=$BACKUP_DIR/rsync
 # BACKUP_DIR_CLONE="/media/max/writable/$CURRENT_DATE"
-SOURCE_DIR="/var /etc /home /usr/local /root" 
+# SOURCE_DIR="/var /etc /home /usr/local /root" 
+SOURCE_DIR="/var/www/html/commit-auto" 
 
 # Création du répertoire de sauvegarde avec les bonnes permissions
  mkdir -p "$BACKUP_DIR_CLONE"
@@ -33,10 +34,14 @@ tar -czf "$BACKUP_DIR.tar.gz" -C "$BACKUP_DIR" .
 
 # AWS S3 
 if aws s3 cp "$BACKUP_DIR.tar.gz" s3://$S3_BUCKET/$CURRENT_DATE.tar.gz; then
-    # Si la copie vers S3 réussit, supprimer les backups locaux
+    # Si la copie vers S3 réussit, supprimer les backups locaux et fichiers dans /daily
     rm -rf "$BACKUP_DIR"
     rm -rf "$BACKUP_DIR.tar.gz"
     echo "Backup local supprimé après transfert réussi vers AWS S3"
+    
+    # Suppression des fichiers du répertoire /daily
+    rm -rf "/daily/*"
+    echo "Fichiers dans /daily supprimés après transfert réussi vers S3"
 else
     echo "Erreur lors du transfert vers AWS S3. Backup local non supprimé."
 fi
